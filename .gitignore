@@ -1,0 +1,16 @@
+# .gitignore
+*.Rdata
+*.rds
+.Rhistory
+.Rproj.user/
+*.shp
+*.vrt
+*.tif
+*.shx
+*.sbx
+*.sbn
+*.qmd
+*.prj
+*.cpg
+*.dbf
+*.shp.xml
