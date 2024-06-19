@@ -1,4 +1,6 @@
 ## Cargar ROI
+install.packages("rsi", "sf", "svDialogs")
+
 library(sf)
 library(rsi)
 library(svDialogs)
