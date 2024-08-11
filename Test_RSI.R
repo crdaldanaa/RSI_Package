@@ -32,22 +32,21 @@ future::plan("sequential")
 progressr::handlers(global = TRUE)
 
 ## Crear mosaico de medianas
-landsat_2023 <- get_landsat_imagery(
+landsat_2020 <- get_landsat_imagery(
   aoi = projected_roi,
-  start_date = "2023-01-01",
-  end_date = "2023-12-30",
+  start_date = "2017-01-01",
+  end_date = "2017-12-30",
   mask_function = \(r) landsat_mask_function(r, include = "both"),
-  composite_function = "median",
-  limit = 200
+  composite_function = "median"
 )
 
 ## Obtener todos los indices espectrales probables
 future::plan("sequential")
 progressr::handlers(global = TRUE)
-landsat_2024_indices <- calculate_indices(
-  landsat_2024,
-  filter_bands(bands = names(terra::rast(landsat_2024))),
-  "landsat_indices.tif"
+landsat_2020_indices <- calculate_indices(
+  landsat_2020,
+  filter_bands(bands = names(terra::rast(landsat_2020))),
+  "landsat_2015_indices.tif" 
 )
 
 ## Obtener un dem del ROI
@@ -57,10 +56,10 @@ roi_dem <- get_dem(projected_roi)
 future::plan("sequential")
 progressr::handlers(global = TRUE)
 combined_layers <- stack_rasters(
-  c(landsat_2024, landsat_2024_indices, roi_dem),
-  "Imagen_2024.vrt"
+  c(landsat_2020, landsat_2020_indices, roi_dem),
+  "Imagen_2013_SF.vrt"
 )
 
-terra::plot(terra::rast(landsat_2024))
-terra::plot(terra::rast(landsat_2024_indices))
+terra::plot(terra::rast(landsat_2020))
+terra::plot(terra::rast(landsat_2020_indices))
 terra::plot(terra::rast(combined_layers))
