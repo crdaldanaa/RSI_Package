@@ -1,14 +1,16 @@
 ## Cargar ROI
+install.packages("rsi", "sf", "svDialogs")
+
 library(sf)
 library(rsi)
 library(svDialogs)
 
 ## Definir Workspace
-workspace <- dlgInput(message="Ingrese la ruta de trabajo: ")$res
+workspace <- dlgInput(message = "Ingrese la ruta de trabajo: ")$res
 setwd(workspace)
 
 # Cargar Feature Class
-roi <- dlgInput(message="Ingrese la ruta del shapefile: ")$res
+roi <- dlgInput(message = "Ingrese la ruta del shapefile: ")$res
 roi <- sf::read_sf(roi)
 
 # Mostrar Poligono(s) Seleccionados
@@ -46,7 +48,7 @@ progressr::handlers(global = TRUE)
 landsat_2020_indices <- calculate_indices(
   landsat_2020,
   filter_bands(bands = names(terra::rast(landsat_2020))),
-  "landsat_2015_indices.tif" 
+  "landsat_2015_indices.tif"
 )
 
 ## Obtener un dem del ROI
